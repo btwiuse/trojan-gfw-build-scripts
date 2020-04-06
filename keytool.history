@@ -1,0 +1,6 @@
+12257  keytool -genkeypair -v -keystore MyApp-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias myapp
+12297  keytool -genkey -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+12298  keytool -genkey -v -keystore ~/.android/release.keystore -alias androidreleasekey -storepass android -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+44762  history | grep keytool
+44764  history | grep keytool
+44765  history | grep keytool > ../scripts/keytool.history
