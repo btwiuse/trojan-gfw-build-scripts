@@ -1,2 +1,3 @@
 SCRIPT_DIR="$(dirname $(realpath $0))"
 "${SCRIPT_DIR}/build-boost-android.sh" --arch=x86_64 --with-libraries=program_options,system /opt/android-sdk/ndk/21.0.6113669/
+ls build/out/x86_64/lib/*.a
