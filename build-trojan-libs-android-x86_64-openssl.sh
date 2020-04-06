@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # export PATH=/opt/android-ndk/toolchains/llvm/prebuilt/linux-x86_64/bin/:$PATH
-export ANDROID_NDK=/opt/android-sdk/ndk/21.0.6113669/
-export PATH="${ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/bin/:$PATH"
+export ANDROID_NDK=/opt/android-sdk/ndk/21.0.6113669
+export ANDROID_NDK_HOME="${ANDROID_NDK}"
+export PATH="${ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/bin/:${PATH}"
 
 OPENSSL_VERSION=1.1.1f
 
