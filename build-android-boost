@@ -4,20 +4,27 @@ TROJAN="${SCRIPT_DIR}"
 cd $SCRIPT_DIR/android-boost
 cp ../patch/android-boost/* .
 
-PROGRAM_OPTIONS="$(realpath $(find ./build/out/x86_64/lib/ -name 'libboost_program_options*.a'))"
-SYSTEM="$(realpath $(find ./build/out/x86_64/lib/ -name 'libboost_system*.a'))"
+ARCH="${ARCH:-x86_64}"
 
-if [[ -f "$PROGRAM_OPTIONS" ]] && [[ -f "$PROGRAM_OPTIONS" ]]; then
+lib_program_options(){
+  echo -n "$(realpath $(find "./build/out/$(todir ${ARCH})/lib/" -name 'libboost_program_options*.a'))"
+}
+
+lib_system(){
+  echo -n "$(realpath $(find "./build/out/$(todir ${ARCH})/lib/" -name 'libboost_system*.a'))"
+}
+
+echo "$(lib_program_options)"
+echo "$(lib_system)"
+
+if [[ -f "$(lib_program_options)" ]] && [[ -f "$(lib_system)" ]]; then
   # skip if already exists
   :
 else
-  ./build-android.sh --arch=x86_64 --with-libraries=program_options,system "${ANDROID_NDK}"
+  ./build-android.sh --arch="$(todir ${ARCH})" --with-libraries=program_options,system "${ANDROID_NDK}"
 fi
 
-PROGRAM_OPTIONS="$(realpath $(find ./build/out/x86_64/lib/ -name 'libboost_program_options*.a'))"
-SYSTEM="$(realpath $(find ./build/out/x86_64/lib/ -name 'libboost_system*.a'))"
+install -Dvm644 "$(lib_program_options)" "$TROJAN/igniter/app/src/main/cpp/libs/lib/$(todir ${ARCH})/libboost_program_options.a"
+install -Dvm644 "$(lib_system)" "$TROJAN/igniter/app/src/main/cpp/libs/lib/$(todir ${ARCH})/libboost_system.a"
 
-install -Dvm644 "$PROGRAM_OPTIONS" $TROJAN/igniter/app/src/main/cpp/libs/lib/x86_64/libboost_program_options.a
-install -Dvm644 "$SYSTEM" $TROJAN/igniter/app/src/main/cpp/libs/lib/x86_64/libboost_system.a
-
-git checkout ./build-android.sh
+# git checkout ./build-android.sh

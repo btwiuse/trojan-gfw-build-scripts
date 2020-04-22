@@ -8,3 +8,23 @@ export ANDROID_NDK="${ANDROID_SDK}/ndk/21.0.6113669"
 export ANDROID_NDK_HOME="${ANDROID_NDK}"
 export PATH="${ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/bin/:${PATH}"
 
+todir(){
+  case  "$1" in
+    arm)
+      echo armeabi-v7a
+      ;;
+    arm64)
+      echo arm64-v8a
+      ;;
+    x86)
+      echo x86
+      ;;
+    x86_64)
+      echo x86_64
+      ;;
+    *)
+      1>&2 echo "[ERROR] Illegal ARCH: $1, must be one of {arm,arm64,x86,x86_64}"
+      exit 1
+  esac
+}
+

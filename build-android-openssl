@@ -9,26 +9,6 @@ OPENSSL_VERSION="1.1.1e"
 # ARCH=x86_64
 ARCH="${ARCH:-x86_64}"
 
-todir(){
-  case  "$1" in
-    arm)
-      echo armeabi-v7a
-      ;;
-    arm64)
-      echo arm64-v8a
-      ;;
-    x86)
-      echo x86
-      ;;
-    x86_64)
-      echo x86_64
-      ;;
-    *)
-      1>&2 echo "[ERROR] Illegal ARCH: $1, must be one of {arm,arm64,x86,x86_64}"
-      exit 1
-  esac
-}
-
 SCRIPT_DIR="$(dirname $(realpath $0))"
 TROJAN="${SCRIPT_DIR}"
 . "$TROJAN/env"
