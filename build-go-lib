@@ -1,2 +1,5 @@
-cd "$(dirname $(realpath $0))"
+SCRIPT_DIR="$(dirname $(realpath $0))"
+TROJAN="${SCRIPT_DIR}"
+. "$TROJAN/env"
+cd "${TROJAN}"
 time make -C igniter-go-libs/ BUILDDIR="$(realpath igniter/app/src/libs/)" -W clean android
