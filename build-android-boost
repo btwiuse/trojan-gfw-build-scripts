@@ -1,5 +1,6 @@
 SCRIPT_DIR="$(dirname $(realpath $0))"
 TROJAN="${SCRIPT_DIR}"
+. "$TROJAN/env"
 cd $SCRIPT_DIR/android-boost
 cp ../patch/android-boost/* .
 
@@ -10,8 +11,11 @@ if [[ -f "$PROGRAM_OPTIONS" ]] && [[ -f "$PROGRAM_OPTIONS" ]]; then
   # skip if already exists
   :
 else
-  ./build-android.sh --arch=x86_64 --with-libraries=program_options,system /opt/android-sdk/ndk/21.0.6113669/
+  ./build-android.sh --arch=x86_64 --with-libraries=program_options,system "${ANDROID_NDK}"
 fi
+
+PROGRAM_OPTIONS="$(realpath $(find ./build/out/x86_64/lib/ -name 'libboost_program_options*.a'))"
+SYSTEM="$(realpath $(find ./build/out/x86_64/lib/ -name 'libboost_system*.a'))"
 
 install -Dvm644 "$PROGRAM_OPTIONS" $TROJAN/igniter/app/src/main/cpp/libs/lib/x86_64/libboost_program_options.a
 install -Dvm644 "$SYSTEM" $TROJAN/igniter/app/src/main/cpp/libs/lib/x86_64/libboost_system.a

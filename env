@@ -3,6 +3,7 @@
 [[ -d "/opt/android-sdk" ]] && export ANDROID_SDK="/opt/android-sdk"
 [[ -d "$HOME/snap/androidsdk/22/AndroidSDK" ]] && export ANDROID_SDK="$HOME/snap/androidsdk/22/AndroidSDK"
 
+export ANDROID_HOME="${ANDROID_SDK}"
 export ANDROID_NDK="${ANDROID_SDK}/ndk/21.0.6113669"
 export ANDROID_NDK_HOME="${ANDROID_NDK}"
 export PATH="${ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/bin/:${PATH}"
