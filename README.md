@@ -7,14 +7,16 @@
 	sudo snap install androidsdk
 	androidsdk 'ndk;21.0.6113669'
 
-2. ./build-go-lib # install gomobile
+2. ./build-boost-for-all-arch && ./build-openssl-for-all-arch && ./build-go-lib && ./build-igniter
 
-	go get golang.org/x/mobile/cmd/gomobile
-	gomobile init
+  2. ./build-go-lib # install gomobile
 
-3. ./build-android-boost # install bjam
+    go get golang.org/x/mobile/cmd/gomobile
+    gomobile init
 
-	copy local bjam
+  3. ./build-android-boost # install bjam
 
-4. ./build-android-openssl
-5. ./build-igniter
+    copy local bjam
+
+  4. ./build-android-openssl
+  5. ./build-igniter
