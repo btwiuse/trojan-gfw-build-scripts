@@ -1,1 +1,3 @@
+#!/usr/bin/env bash
+
 for a in {arm,arm64,x86,x86_64}; do env ARCH=$a ./build-android-boost; done

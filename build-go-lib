@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 SCRIPT_DIR="$(dirname $(realpath $0))"
 TROJAN="${SCRIPT_DIR}"
 . "$TROJAN/env"
