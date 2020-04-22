@@ -2,35 +2,61 @@
 
 set -e
 
-OPENSSL_VERSION="1.1.1f"
+OPENSSL_VERSION="1.1.1e"
+# ARCH=arm
+# ARCH=arm64
+# ARCH=x86
+# ARCH=x86_64
+ARCH="${ARCH:-x86_64}"
+
+todir(){
+  case  "$1" in
+    arm)
+      echo armeabi-v7a
+      ;;
+    arm64)
+      echo arm64-v8a
+      ;;
+    x86)
+      echo x86
+      ;;
+    x86_64)
+      echo x86_64
+      ;;
+    *)
+      1>&2 echo "[ERROR] Illegal ARCH: $1, must be one of {arm,arm64,x86,x86_64}"
+      exit 1
+  esac
+}
 
 SCRIPT_DIR="$(dirname $(realpath $0))"
 TROJAN="${SCRIPT_DIR}"
 . "$TROJAN/env"
 CWD="${SCRIPT_DIR}/android-openssl"
 TROJAN="$(dirname "$CWD")"
-mkdir -p "$CWD"/{build,out}
+mkdir -p "$CWD"/{build,out/$ARCH}
 
 cd "$CWD/build"
 if [[ ! -f openssl-$OPENSSL_VERSION.tar.gz ]];then
   wget https://openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz
 fi
-if ! [[ -d openssl-$OPENSSL_VERSION ]];then
-  tar xf openssl-$OPENSSL_VERSION.tar.gz
-  pushd openssl-$OPENSSL_VERSION
+if ! [[ -d openssl-$ARCH-$OPENSSL_VERSION ]];then
+  mkdir -p openssl-$ARCH-$OPENSSL_VERSION
+  tar -C openssl-$ARCH-$OPENSSL_VERSION -xf openssl-$OPENSSL_VERSION.tar.gz --strip=1
+  pushd openssl-$ARCH-$OPENSSL_VERSION
   # make distclean
-  ./Configure android-x86_64 -D__ANDROID_API__=21 no-shared no-ssl2 no-ssl3 no-unit-test --prefix="$CWD/out"
+  ./Configure android-"${ARCH}" -D__ANDROID_API__=21 no-shared no-ssl2 no-ssl3 no-unit-test --prefix="$CWD/out/$ARCH"
   popd
 else
   # assume src is already configured and is ready to make
   : rm -rf openssl-$OPENSSL_VERSION
 fi
 
-cd "openssl-$OPENSSL_VERSION"
+cd "openssl-$ARCH-$OPENSSL_VERSION"
 make depend
 make
 make install_sw
-cd "$CWD/out"
-install -Dvm644 include/openssl/opensslconf.h $TROJAN/igniter/app/src/main/cpp/libs/include/x86_64/openssl/opensslconf.h
-install -Dvm644 lib/libcrypto.a $TROJAN/igniter/app/src/main/cpp/libs/lib/x86_64/libcrypto.a
-install -Dvm644 lib/libssl.a $TROJAN/igniter/app/src/main/cpp/libs/lib/x86_64/libssl.a
+cd "$CWD/out/$ARCH"
+install -Dvm644 include/openssl/opensslconf.h $TROJAN/igniter/app/src/main/cpp/libs/include/"$(todir ${ARCH})"/openssl/opensslconf.h
+install -Dvm644 lib/libcrypto.a $TROJAN/igniter/app/src/main/cpp/libs/lib/"$(todir ${ARCH})"/libcrypto.a
+install -Dvm644 lib/libssl.a $TROJAN/igniter/app/src/main/cpp/libs/lib/"$(todir ${ARCH})"/libssl.a

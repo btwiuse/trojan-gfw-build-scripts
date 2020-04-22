@@ -1,0 +1,1 @@
+find ./android-openssl/out/x86_64/include/openssl/ -type f | grep -v opensslconf.h | xargs -L1 -I@ cp -v @ igniter/app/src/main/cpp/libs/include/openssl/
