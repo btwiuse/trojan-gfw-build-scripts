@@ -1,7 +1,7 @@
 SCRIPT_DIR="$(dirname $(realpath $0))"
 TROJAN="${SCRIPT_DIR}"
 cd $SCRIPT_DIR/android-boost
-cp ../build-boost-android.sh build-android.sh
+cp ../patch/android-boost/* .
 
 PROGRAM_OPTIONS="$(realpath $(find ./build/out/x86_64/lib/ -name 'libboost_program_options*.a'))"
 SYSTEM="$(realpath $(find ./build/out/x86_64/lib/ -name 'libboost_system*.a'))"
