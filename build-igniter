@@ -1,5 +1,6 @@
 SCRIPT_DIR="$(dirname $(realpath $0))"
 TROJAN="${SCRIPT_DIR}"
+. "$TROJAN/env"
 IGNITER="${SCRIPT_DIR}/igniter"
 cd "${IGNITER}"
 cp -r ../patch/igniter/* .
