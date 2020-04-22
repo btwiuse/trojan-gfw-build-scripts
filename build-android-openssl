@@ -31,6 +31,6 @@ make depend
 make
 make install_sw
 cd "$CWD/out"
-install -Dvm644 include/openssl/opensslconf.h $TROJAN/igniter/app/src/main/cpp/libs/lib/x86_64/openssl/opensslconf.h
+install -Dvm644 include/openssl/opensslconf.h $TROJAN/igniter/app/src/main/cpp/libs/include/x86_64/openssl/opensslconf.h
 install -Dvm644 lib/libcrypto.a $TROJAN/igniter/app/src/main/cpp/libs/lib/x86_64/libcrypto.a
 install -Dvm644 lib/libssl.a $TROJAN/igniter/app/src/main/cpp/libs/lib/x86_64/libssl.a
