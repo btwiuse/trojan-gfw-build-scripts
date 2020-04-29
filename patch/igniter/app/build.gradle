@@ -33,7 +33,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "io.github.trojan_gfw.igniter"
+        applicationId "io.github.btwiuse.igniter"
         minSdkVersion project.ext.minimumSdkVersion
         targetSdkVersion project.ext.targetSdkVersion
         versionCode GenerateVersionCode()
