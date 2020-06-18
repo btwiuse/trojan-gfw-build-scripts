@@ -1,2 +1,3 @@
 sdkmanager --list
-sdkmanager --install 'ndk;21.0.6113669'
+sdkmanager --install 'ndk;21.3.6528147'
+./tools/bin/sdkmanager --install 'ndk;21.3.6528147' --sdk_root=/home/zouhangbiao/snap/androidsdk/26/AndroidSDK
